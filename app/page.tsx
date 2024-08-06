@@ -9,6 +9,7 @@ import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import { db } from "./_lib/prisma"
 import BarbershopItem from "./_components/barbershop-item"
 import Footer from "./_components/footer"
+import { quickSearchOptions } from "./_constants/search"
 
 const Home = async () => {
   const barbershop = await db.barbershop.findMany({})
@@ -32,6 +33,21 @@ const Home = async () => {
           <Button>
             <SearchIcon />
           </Button>
+        </div>
+
+        {/** Pesquisa Rapida */}
+        <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+          {quickSearchOptions.map((searchOption) => (
+            <Button className="gap-2" variant="secondary" key={searchOption.id}>
+              <Image
+                alt={searchOption.title}
+                src={searchOption.imageUrl}
+                width={16}
+                height={16}
+              />
+              {searchOption.title}
+            </Button>
+          ))}
         </div>
 
         {/* Banner */}
