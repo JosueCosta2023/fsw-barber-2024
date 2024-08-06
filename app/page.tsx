@@ -8,6 +8,7 @@ import { Badge } from "./_components/ui/badge"
 import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import { db } from "./_lib/prisma"
 import BarbershopItem from "./_components/barbershop-item"
+import Footer from "./_components/footer"
 
 const Home = async () => {
   const barbershop = await db.barbershop.findMany({})
@@ -90,6 +91,8 @@ const Home = async () => {
           ))}
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }
