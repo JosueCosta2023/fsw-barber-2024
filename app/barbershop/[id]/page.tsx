@@ -1,7 +1,13 @@
 import ServiceItem from "@/app/_components/service-item"
 import { Button } from "@/app/_components/ui/button"
 import { db } from "@/app/_lib/prisma"
-import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react"
+import {
+  ChevronLeftIcon,
+  MapPinIcon,
+  MenuIcon,
+  SmartphoneIcon,
+  StarIcon,
+} from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -78,7 +84,7 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
       </div>
 
       {/**Servios */}
-      <div className="p-5">
+      <div className="border-b border-solid p-5">
         <h2 className="mb-3 text-xs font-bold uppercase text-gray-400">
           Serviços
         </h2>
@@ -88,8 +94,31 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
           ))}
         </div>
       </div>
+
+      {/**Contato */}
+      <div className="p-5">
+        <h2 className="text-xs font-bold uppercase text-gray-400">Telefones</h2>
+        {barbershop.phones.map((phone) => (
+          <div
+            className="flex max-w-[768px] items-center justify-between space-y-3"
+            key={phone}
+          >
+            {/**Left */}
+            <div className="flex items-center gap-2">
+              <SmartphoneIcon />
+              <p className="text-sm">{phone}</p>
+            </div>
+            {/**Right */}
+            <Button variant="outline" size="sm">
+              Copiar
+            </Button>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
+
+// 55 minutos de video
 
 export default BarbershopPage
