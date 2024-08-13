@@ -32,8 +32,6 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
     return notFound()
   }
 
-  console.log(barbershop.services)
-
   return (
     <div>
       {/**Imagem */}
