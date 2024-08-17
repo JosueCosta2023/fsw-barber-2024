@@ -1,31 +1,44 @@
-import BarbershopItem from "../_components/barbershop-item";
-import { db } from "../_lib/prisma";
+import BarbershopItem from "../_components/barbershop-item"
+import Header from "../_components/header"
+import Search from "../_components/search"
+import { db } from "../_lib/prisma"
 
 interface BarbershopPagePros {
-    searchParams: {
-        search: string
-    }
+  searchParams: {
+    search: string
+  }
 }
-const BarbershopPage = async ({searchParams}: BarbershopPagePros) => {
+const BarbershopPage = async ({ searchParams }: BarbershopPagePros) => {
+  const barbershops = await db.barbershop.findMany({
+    where: {
+      name: {
+        contains: searchParams?.search,
+        mode: "insensitive",
+      },
+    },
+  })
 
-    const barbershops = await db.barbershop.findMany({
-        where:{
-            name:{
-                contains: searchParams?.search,
-                mode: "insensitive"
-            }
-        }
-    })
+  return (
+    <div>
+      <Header />
+      <div className="my-6 px-5">
+        <Search />
+      </div>
 
-    return ( 
-        <div>
-            <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">Resultados para &quot;{searchParams?.search}&quot;</h2>
+      <div className="px-5">
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+          Resultados para &quot;{searchParams?.search}&quot;
+        </h2>
 
-            <div className="grid grid-cols-2 gap-4">
-                {barbershops.map(barbershop => <BarbershopItem barbershop={barbershop} key={barbershop.id}/>)}
-            </div>
+        <div className="grid grid-cols-2 gap-4">
+          {barbershops.map((barbershop) => (
+            <BarbershopItem barbershop={barbershop} key={barbershop.id} />
+          ))}
         </div>
-     );
+        
+      </div>
+    </div>
+  )
 }
- 
-export default BarbershopPage;
+
+export default BarbershopPage
