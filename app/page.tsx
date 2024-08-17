@@ -1,13 +1,13 @@
-import { SearchIcon } from "lucide-react"
+
 import Header from "./_components/header"
 import { Button } from "./_components/ui/button"
-import { Input } from "./_components/ui/input"
 import Image from "next/image"
 import { db } from "./_lib/prisma"
 import BarbershopItem from "./_components/barbershop-item"
 import { quickSearchOptions } from "./_constants/search"
 import BookingItem from "./_components/booking-Item"
 import Search from "./_components/search"
+import Link from "next/link"
 
 const Home = async () => {
   const barbershop = await db.barbershop.findMany({})
@@ -33,14 +33,16 @@ const Home = async () => {
         {/** Pesquisa Rapida */}
         <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
           {quickSearchOptions.map((searchOption) => (
-            <Button className="gap-2" variant="secondary" key={searchOption.id}>
-              <Image
-                alt={searchOption.title}
-                src={searchOption.imageUrl}
-                width={16}
-                height={16}
-              />
-              {searchOption.title}
+            <Button className="gap-2" variant="secondary" key={searchOption.id} asChild>
+              <Link href={`/barbershop?service=${searchOption.title}`}>
+                <Image
+                  alt={searchOption.title}
+                  src={searchOption.imageUrl}
+                  width={16}
+                  height={16}
+                />
+                {searchOption.title}
+              </Link>
             </Button>
           ))}
         </div>
