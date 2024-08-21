@@ -20,6 +20,8 @@ import { createBooking } from "../_actions/create-booking"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
 import { getBookings } from "../_actions/get-bookings"
+import SingInDialog from "./sing-in-dialog"
+import { Dialog, DialogContent } from "./ui/dialog"
 
 
 interface ServiceItemProps {
@@ -107,6 +109,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const [selectedTime, setSelectedTime] = useState<string | undefined>(undefined)
   const [dayBookings, setDayBookings] = useState<Booking[]>([])
   const [bookingsSheetIsOpen, setBookingsSheetIsOpen] = useState(false)
+  const [singDialogIsOpen, setSingDialogIsOpen] = useState(false)
 
 
   const handleDaySelected = (date: Date | undefined) => {
@@ -165,7 +168,17 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
     setBookingsSheetIsOpen(false)
   }
 
+  const handleBookingClick = () => {
+    if(data?.user){
+      return setBookingsSheetIsOpen(true)
+    } 
+    
+    return setSingDialogIsOpen(true)
+    
+  }
+
   return (
+    <>
     <Card>
       <CardContent className="flex items-center gap-3 p-3">
         <div className="relative max-h-[110px] min-h-[110px] min-w-[110px] max-w-[110px]">
@@ -190,7 +203,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
             </p>
             <Sheet open={bookingsSheetIsOpen} onOpenChange={handleBookingSheetOpenchange}>
               
-                <Button variant="secondary" size="sm" onClick={() => setBookingsSheetIsOpen(true)}>
+                <Button variant="secondary" size="sm" onClick={handleBookingClick}>
                   Reservar
                 </Button>
               
@@ -227,7 +240,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                         textTransform: "capitalize",
                       },
                     }}
-                    fromDate={addDays(new Date(), 0)}
+                    fromDate={new Date()}
                   />
                 </div>
 
@@ -302,6 +315,13 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
         </div>
       </CardContent>
     </Card>
+    
+    <Dialog open={singDialogIsOpen} onOpenChange={(open) => setSingDialogIsOpen(open)}>
+      <DialogContent className="w-[90%]">
+        <SingInDialog/>
+      </DialogContent>
+    </Dialog>
+    </>
   )
 }
 
