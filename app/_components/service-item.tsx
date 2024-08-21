@@ -15,7 +15,11 @@ import {
 import { Calendar } from "./ui/calendar"
 import { ptBR } from "date-fns/locale"
 import { useState } from "react"
-import { format } from "date-fns"
+import { format, set, setHours, setMinutes } from "date-fns"
+import { createBooking } from "../_actions/create-booking"
+import { useSession } from "next-auth/react"
+import { toast } from "sonner"
+
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -84,6 +88,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const [selectedTime, setSelectedTime] = useState<string | undefined>(
     undefined,
   )
+  const {data} = useSession()
 
   const handleDaySelected = (date: Date | undefined) => {
     setSelectedDay(date)
@@ -91,6 +96,34 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
   const handleTimeSelected = (time: string) => {
     setSelectedTime(time)
+  }
+
+  const handleCreateBooking = async () => {
+
+    if(!selectedDay || !selectedTime) return;
+
+    try {
+      const hour = selectedTime.split(":")[0]
+      const minute = selectedTime.split(":")[1]
+  
+      const newDate = set(selectedDay, {
+        minutes: Number(minute),
+        hours: Number(hour)
+      })
+  
+      await createBooking({
+        serviceId: service.id,
+        userId: (data?.user as any).id,
+        date: newDate
+      })
+      toast.success("Horario reservado com sucesso.")
+      
+    } catch (error) {
+      console.error(error)
+      toast.error("Erro ao reservar horario.")
+    }
+
+ 
   }
 
   return (
@@ -215,9 +248,10 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                     </Card>
                   </div>
                 )}
-               <SheetFooter className="px-5">
+
+               <SheetFooter className="px-5 mt-5">
                   <SheetClose asChild>
-                    <Button type="submit">Confirmar</Button>
+                    <Button type="submit" onClick={handleCreateBooking} disabled={!selectedDay || !selectedTime}>Confirmar</Button>
                   </SheetClose>
                 </SheetFooter>
               
