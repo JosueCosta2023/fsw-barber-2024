@@ -11,13 +11,12 @@ import {
   DialogContent,
   DialogTrigger,
 } from "./ui/dialog"
-import { signIn, signOut, useSession } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 import SingInDialog from "./sing-in-dialog"
 
 const SidebarSheet = () => {
   const { data } = useSession()
 
-  const handleLoginWithGoogleClick = () => signIn("google")
   const handleLogoutClick = () => signOut()
 
   return (
@@ -65,10 +64,13 @@ const SidebarSheet = () => {
           </Button>
         </SheetClose>
 
+        {data?.user && (
         <Button variant="ghost" className="justify-start gap-2">
           <CalendarIcon size={18} />
-          Agendamentos
+          Meus Agendamentos
         </Button>
+        )}
+
       </div>
 
       <div className="flex flex-col gap-2 border-b border-solid py-5">
@@ -89,16 +91,18 @@ const SidebarSheet = () => {
           </SheetClose>
         ))}
       </div>
+      {data?.user && (
+        <div className="flex flex-col py-5">
+          <Button
+            variant="ghost"
+            className="justify-start gap-2"
+            onClick={handleLogoutClick}
+          >
+            <LogOutIcon size={18} /> Sair da Conta
+          </Button>
+        </div>
+      )}
 
-      <div className="flex flex-col py-5">
-        <Button
-          variant="ghost"
-          className="justify-start gap-2"
-          onClick={handleLogoutClick}
-        >
-          <LogOutIcon size={18} /> Sair da Conta
-        </Button>
-      </div>
     </SheetContent>
   )
 }
