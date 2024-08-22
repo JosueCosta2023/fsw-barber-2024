@@ -8,6 +8,11 @@ import { quickSearchOptions } from "./_constants/search"
 import BookingItem from "./_components/booking-Item"
 import Search from "./_components/search"
 import Link from "next/link"
+import { getServerSession } from "next-auth"
+import { authOptions } from "./_lib/auth"
+import { format } from "date-fns"
+import { ptBR } from "date-fns/locale"
+
 
 const Home = async () => {
   const barbershop = await db.barbershop.findMany({})
@@ -16,14 +21,28 @@ const Home = async () => {
       name: "desc",
     },
   })
+  const session = await getServerSession(authOptions)
+
+  const bookings = session?.user ?  await db.booking.findMany({
+    where:{
+      userId: (session?.user as any).id
+  },
+  include:{
+      service: {
+          include: {
+              barbershop: true
+          }
+      }
+  }
+  }) : []
 
   return (
     <div>
       <Header />
 
       <div className="p-5">
-        <h2 className="text-xl font-bold">Olá, Josué!</h2>
-        <p className="text-xs">Terça-Feira, 06 de Agosto</p>
+        <h2 className="text-xl font-bold">Olá, {session?.user ? session?.user?.name?.split(" ")[0] : "Seja bem vindo!"}</h2>
+        <p className="text-xs capitalize">{format(new Date(), "EEEE, d 'de' MMMM", { locale: ptBR })};</p>
 
         {/* Buscar */}
         <div className="mt-6">
@@ -57,8 +76,15 @@ const Home = async () => {
           />
         </div>
 
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">Agendamentos</h2>
+
         {/* Agendamento */}
-        <BookingItem />
+        <div className="flex overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden">
+          {bookings.map(booking =>    
+            <BookingItem booking={booking} key={booking.id} />
+          )}
+        </div>
+        
 
         {/** Recomendados  */}
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
@@ -75,6 +101,7 @@ const Home = async () => {
           Populares
         </h2>
         <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+        
           {barbershopPopular.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}

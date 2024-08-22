@@ -17,7 +17,7 @@ import SingInDialog from "./sing-in-dialog"
 const SidebarSheet = () => {
   const { data } = useSession()
 
-  const handleLogoutClick = () => signOut()
+  const handleLogoutClick = () => signOut({callbackUrl: "/"})
 
   return (
     <SheetContent>
@@ -65,9 +65,11 @@ const SidebarSheet = () => {
         </SheetClose>
 
         {data?.user && (
-        <Button variant="ghost" className="justify-start gap-2">
-          <CalendarIcon size={18} />
-          Meus Agendamentos
+        <Button variant="ghost" className="justify-start gap-2" asChild>
+          <Link href="/bookings">
+            <CalendarIcon size={18} />
+            Meus Agendamentos
+          </Link>
         </Button>
         )}
 
@@ -98,7 +100,9 @@ const SidebarSheet = () => {
             className="justify-start gap-2"
             onClick={handleLogoutClick}
           >
-            <LogOutIcon size={18} /> Sair da Conta
+            
+          <LogOutIcon size={18} /> Sair da Conta
+    
           </Button>
         </div>
       )}
