@@ -23,9 +23,15 @@ const Home = async () => {
   })
   const session = await getServerSession(authOptions)
 
-  const bookings = session?.user ?  await db.booking.findMany({
+  const isConfirmedBookings = session?.user ?  await db.booking.findMany({
     where:{
-      userId: (session?.user as any).id
+      userId: (session?.user as any).id,
+      date: {
+        gte: new Date()
+      }
+  },
+  orderBy:{
+    date: "asc"
   },
   include:{
       service: {
@@ -80,7 +86,7 @@ const Home = async () => {
 
         {/* Agendamento */}
         <div className="flex overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden">
-          {bookings.map(booking =>    
+          {isConfirmedBookings.map(booking =>    
             <BookingItem booking={booking} key={booking.id} />
           )}
         </div>
