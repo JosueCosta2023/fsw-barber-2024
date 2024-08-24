@@ -4,4 +4,4 @@
  - Intro ap Tailwind e Shadcn
  - Git Hooks
  - Mobile version
-aula 05 39 minutes
+aula 05 01:45 minutes revalidação de pagina
