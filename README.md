@@ -5,3 +5,5 @@
  - Git Hooks
  - Mobile version
 aula 05 01:45 minutes revalidação de pagina
+01:57
+
