@@ -1,4 +1,3 @@
-
 import Header from "./_components/header"
 import { Button } from "./_components/ui/button"
 import Image from "next/image"
@@ -13,7 +12,6 @@ import { authOptions } from "./_lib/auth"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
 
-
 const Home = async () => {
   const barbershop = await db.barbershop.findMany({})
   const barbershopPopular = await db.barbershop.findMany({
@@ -23,32 +21,49 @@ const Home = async () => {
   })
   const session = await getServerSession(authOptions)
 
-  const isConfirmedBookings = session?.user ?  await db.booking.findMany({
-    where:{
-      userId: (session?.user as any).id,
-      date: {
-        gte: new Date()
-      }
-  },
-  orderBy:{
-    date: "asc"
-  },
-  include:{
-      service: {
-          include: {
-              barbershop: true
-          }
-      }
-  }
-  }) : []
+  const isConfirmedBookings = session?.user
+    ? await db.booking.findMany({
+        where: {
+          userId: (session?.user as any).id,
+          date: {
+            gte: new Date(),
+          },
+        },
+        orderBy: {
+          date: "asc",
+        },
+        include: {
+          service: {
+            include: {
+              barbershop: true,
+            },
+          },
+        },
+      })
+    : []
 
   return (
     <div>
       <Header />
 
       <div className="p-5">
-        <h2 className="text-xl font-bold">Olá, {session?.user ? session?.user?.name?.split(" ")[0] : "Seja bem vindo!"}</h2>
-        <p className="text-xs capitalize">{format(new Date(), "EEEE, d 'de' MMMM", { locale: ptBR })};</p>
+        <h2 className="text-xl font-bold">
+          Olá,{" "}
+          {session?.user
+            ? session?.user?.name?.split(" ")[0]
+            : "Seja bem vindo!"}
+        </h2>
+        <p className="text-xs">
+          <span className="capitalize">
+            {format(new Date(), "EEEE, d", { locale: ptBR })}
+          </span>
+
+          <span>{" " + `de` + " "}</span>
+
+          <span className="capitalize">
+            {format(new Date(), "MMMM", { locale: ptBR })}
+          </span>
+        </p>
 
         {/* Buscar */}
         <div className="mt-6">
@@ -58,7 +73,12 @@ const Home = async () => {
         {/** Pesquisa Rapida */}
         <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
           {quickSearchOptions.map((searchOption) => (
-            <Button className="gap-2" variant="secondary" key={searchOption.id} asChild>
+            <Button
+              className="gap-2"
+              variant="secondary"
+              key={searchOption.id}
+              asChild
+            >
               <Link href={`/barbershop?service=${searchOption.title}`}>
                 <Image
                   alt={searchOption.title}
@@ -82,21 +102,26 @@ const Home = async () => {
           />
         </div>
 
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">Agendamentos</h2>
+        {isConfirmedBookings.length > 0 ? (
+          <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+            Agendamentos
+          </h2>
+        ) : (
+          []
+        )}
 
         {/* Agendamento */}
-        <div className="flex overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden w-full">
-          {isConfirmedBookings.map(booking =>    
+        <div className="flex w-full gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+          {isConfirmedBookings.map((booking) => (
             <BookingItem booking={booking} key={booking.id} />
-          )}
+          ))}
         </div>
-        
 
         {/** Recomendados  */}
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Recomendados
         </h2>
-        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden ">
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
           {barbershop.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
@@ -104,10 +129,9 @@ const Home = async () => {
 
         {/** */}
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-          Populares
+          Todas as Barbearias
         </h2>
         <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
-        
           {barbershopPopular.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
