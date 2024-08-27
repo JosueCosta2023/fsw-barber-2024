@@ -27,12 +27,12 @@
 
 
 ## Requisitos de Sistema
-Plataforma: Web Mobile
-Backend: Node.js, postgreSQL and prisma
-Frontend: next.js, tailwindCss and typescript
-Autenticação: Google Sign-In
-Banco de Dados: postgreSQL
-Deploy: Vercel and NEONDB
+- Plataforma: Web Mobile
+- Backend: Node.js, postgreSQL and prisma
+- Frontend: next.js, tailwindCss and typescript
+- Autenticação: Google Sign-In
+- Banco de Dados: postgreSQL
+- Deploy: Vercel and NEONDB
 
 ## Clone o repositório:
 
