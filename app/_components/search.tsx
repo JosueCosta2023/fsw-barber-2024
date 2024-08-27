@@ -39,7 +39,7 @@ const Search = () => {
           render={({ field }) => (
             <FormItem className="flex w-full flex-col text-left">
               <FormControl>
-                <Input placeholder="Busque uma barbearia..." {...field}  className="w-full"/>
+                <Input placeholder="Busque por uma barbearia ou serviço..." {...field}  className="w-full"/>
               </FormControl>
               <FormMessage></FormMessage>
             </FormItem>
