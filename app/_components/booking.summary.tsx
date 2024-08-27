@@ -1,7 +1,3 @@
-import { format } from "date-fns"
-import { Card, CardContent } from "./ui/card"
-
-
 const BookingSummary = () => {
   return (
     <>

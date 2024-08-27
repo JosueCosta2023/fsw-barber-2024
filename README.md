@@ -35,8 +35,27 @@
 - Deploy: Vercel and NEONDB
 
 ## Clone o repositório:
+Para Clonar nosso repositório utilize o comando 
 
- ...
+    git clone https://github.com/JosueCosta2023/fsw-barber-2024.git
+
+
+Após a clonagem utilize:
+
+    npm install --force
+
+"O `--force` é para força a instalação de todas as dependências ignorando avisos de segurança sobre versões."
+
+## Variaveis de Ambiente
+Esta variaveis são essenciais para conexão com o banco de dados, crie o arquivo `.env` e insira suas credenciais.
+
+    DATABASE_URL="Seu URi do banco de dados"
+
+    GOOGLE_CLIENT_ID="Crendencial google cloud",
+
+    GOOGLE_CLIENT_SECRET="Credencial google cloud",
+
+    NEXT_AUTH_SECRET="?secret"
 
 ## Uso
 `Login:` Na tela inicial, clique em "Login com Google" para acessar sua conta.
@@ -49,9 +68,27 @@
 
 `Status do Serviço:` O status do serviço será atualizado automaticamente conforme a data e hora do agendamento.
 
-## Estrutura do Projeto
+## Rotas
+Aqui apresentamos um exemplo do link localhost e do URI, o localhost é para instalação local e o URI vem através do deploy.
 
-...
+
+    - Home page
+    http://localhost:3000
+    http://URI
+
+    - Pagina de detalhes de uma barbearia
+    http://localhost:3000/barbershop/[id]
+    http://uri/barbershop/[id]
+
+    - Pagina para agendar serviço
+    http://localhost:3000/barbershop?service=nome_do_serviço
+    http://URI/barbershop?service=nome_do_serviço
+
+    - Pagina de listagem de agendamentos
+    http://localhost:3000/bookings
+    http://URI/bookings
+
+
 
 
 
