@@ -1,0 +1,63 @@
+35minutes
+bash
+Copiar código
+git clone https://github.com/seu-usuario/sua-plataforma-barbearias.git
+cd sua-plataforma-barbearias
+Instale as dependências do backend:
+
+bash
+Copiar código
+cd backend
+npm install
+Configure as variáveis de ambiente:
+
+Crie um arquivo .env na pasta backend com as seguintes variáveis:
+makefile
+Copiar código
+MONGODB_URI=seu_uri_mongodb
+FIREBASE_API_KEY=sua_api_key
+FIREBASE_AUTH_DOMAIN=seu_auth_domain
+FIREBASE_PROJECT_ID=seu_project_id
+FIREBASE_STORAGE_BUCKET=seu_storage_bucket
+FIREBASE_MESSAGING_SENDER_ID=seu_sender_id
+FIREBASE_APP_ID=sua_app_id
+Inicie o backend:
+
+bash
+Copiar código
+npm start
+Instale as dependências do frontend:
+
+bash
+Copiar código
+cd ../frontend
+npm install
+Inicie o frontend:
+
+bash
+Copiar código
+npm start
+
+
+backend/: Contém a API e a lógica de negócios.
+
+models/: Modelos de dados para MongoDB.
+routes/: Definição das rotas da API.
+controllers/: Contém a lógica das operações de cada rota.
+middleware/: Contém middlewares como autenticação.
+frontend/: Contém o código do aplicativo mobile.
+
+screens/: Contém as telas principais do aplicativo.
+components/: Componentes reutilizáveis.
+navigation/: Configuração de navegação entre telas.
+Contribuição
+Se deseja contribuir para o projeto, por favor, siga estas etapas:
+
+Fork o repositório.
+Clone o repositório para sua máquina local.
+Crie uma nova branch para suas mudanças (git checkout -b minha-branch).
+Commit suas mudanças (git commit -m 'Minha contribuição').
+Push para a branch (git push origin minha-branch).
+Crie um Pull Request para revisão.
+Licença
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo LICENSE para mais detalhes.
