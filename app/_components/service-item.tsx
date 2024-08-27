@@ -230,9 +230,9 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
               <SheetContent className="px-0">
                 <SheetHeader>
-                  <SheetTitle>Faça sua reserva</SheetTitle>
+                  <SheetTitle >Faça sua reserva</SheetTitle>
                 </SheetHeader>
-                <div className="border-b border-solid py-5">
+                <div className="border-b border-solid py-5 w-full">
                   <Calendar
                     mode="single"
                     locale={ptBR}
@@ -257,8 +257,8 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                         width: "32px",
                       },
                       caption: {
-                        textTransform: "capitalize",
-                      },
+                        textTransform: "capitalize"
+                      }
                     }}
                     fromDate={new Date()}
                   />
