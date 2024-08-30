@@ -22,6 +22,7 @@ import { getBookings } from "../_actions/get-bookings"
 import SingInDialog from "./sing-in-dialog"
 import { Dialog, DialogContent } from "./ui/dialog"
 import BookingSummary from "./booking-summary"
+import { useRouter } from "next/navigation"
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -120,6 +121,7 @@ const getTimeList = ({ bookings, selectedDay }: GetTimeLisProsp) => {
 }
 
 const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
+  const router = useRouter()
   const { data } = useSession()
   const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined)
   const [selectedTime, setSelectedTime] = useState<string | undefined>(
@@ -146,7 +148,12 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
         date: selectedDate,
       })
       handleBookingSheetOpenchange()
-      toast.success("Horario reservado com sucesso.")
+      toast.success("Horario reservado com sucesso.",{
+        action:{
+          label: "Ver Agendamento",
+          onClick: () => router.push('/bookings')
+        }
+      })
     } catch (error) {
       console.error(error)
       toast.error("Erro ao reservar horario.")
