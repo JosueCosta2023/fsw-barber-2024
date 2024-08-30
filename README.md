@@ -1,5 +1,5 @@
 # FWS-Barber 2024
-#### Esta plataforma mobile foi desenvolvida para facilitar a interação entre barbearias e seus clientes. A aplicação permite que os usuários encontrem barbearias próximas, agendem serviços, e gerenciem suas reservas diretamente pelo aplicativo. A plataforma foi construída com foco na usabilidade e na automação de processos, garantindo uma experiência fluida para os usuários.
+#### Esta plataforma mobile foi desenvolvida no workshop da FullStackWeek e foi pensada para facilitar a interação entre barbearias e seus clientes. A aplicação permite que os usuários encontrem barbearias próximas, agendem serviços, e gerenciem suas reservas diretamente pelo aplicativo. A plataforma foi construída com foco na usabilidade e na automação de processos, garantindo uma experiência fluida para os usuários.
 
 ## Funcionalidades
 ### Listagem de Barbearias:
@@ -92,6 +92,27 @@ Aqui apresentamos um exemplo do link localhost e do URI, o localhost é para ins
     http://localhost:3000/bookings
     http://URI/bookings
 
+
+### Diretrizes 
+
+- Seja respeitoso e considerado com os outros.
+- Forneça feedback construtivo e esteja aberto a recebê-lo.
+- Respeite pontos de vista e experiências diferentes.
+
+## Author
+### Josué Ocanha Costa
+#### FullStack Developer
+#### Redes Sociais
+
+- Linkedin - [JosueOcanhaCosta](https://www.linkedin.com/in/josue-ocanha-costa/)
+- Github - [JosueCosta2023](https://github.com/JosueCosta2023)
+- Twitter - [@JosueOcanhaCosta](https://twitter.com/josue_ocanha)
+- Facebook - [JosueCosta](https://www.facebook.com/JosueOcanhaCosta2023)
+- Whatsapp - [Josue2023](https://wa.me/5565996408371?text=Ol%C3%A1%2C+encontrei+seu+whatsapp+no+Github.+Gostaria+de+falar+sobre+seus+projetos.)
+
+# "Vida longa e próspera. 🖖🖖🖖"
+
+Feito com o ❤️ por Josué Ocanha Costa
 
 
 
