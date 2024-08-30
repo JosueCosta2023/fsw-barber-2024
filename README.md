@@ -46,6 +46,10 @@ Após a clonagem utilize:
 
 "O `--force` é para força a instalação de todas as dependências ignorando avisos de segurança sobre versões."
 
+Para utilizar um banco de dados pessoal, execute o migrate para criar as tabelas necessarias:
+    
+    npx prisma migrate dev
+
 ## Variaveis de Ambiente
 Esta variaveis são essenciais para conexão com o banco de dados, crie o arquivo `.env` e insira suas credenciais.
 
@@ -55,7 +59,7 @@ Esta variaveis são essenciais para conexão com o banco de dados, crie o arquiv
 
     GOOGLE_CLIENT_SECRET="Credencial google cloud",
 
-    NEXT_AUTH_SECRET="?secret"
+    NEXT_AUTH_SECRET="secret" --pode deixar secret escrito se preferir.
 
 ## Uso
 `Login:` Na tela inicial, clique em "Login com Google" para acessar sua conta.
